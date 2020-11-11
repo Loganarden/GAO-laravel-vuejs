@@ -38180,15 +38180,25 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._v("\n    bonjour\n    "),
     _c(
       "div",
       _vm._l(_vm.postes, function(poste) {
-        return _c("div", { key: poste.id, staticClass: "nomposte" }, [
-          _vm._v("\n            " + _vm._s(poste.nomposte) + " \n        ")
-        ])
+        return _c(
+          "v-card",
+          { key: poste.id, attrs: { elevation: "3" } },
+          [
+            _c("v-card-subtitle", [
+              _vm._v(
+                "\n                " + _vm._s(poste.nomposte) + "\n            "
+              )
+            ]),
+            _vm._v(" "),
+            _c("v-card-text", [_vm._v("\n                body\n            ")])
+          ],
+          1
+        )
       }),
-      0
+      1
     )
   ])
 }
