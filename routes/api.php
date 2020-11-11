@@ -22,4 +22,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/poste', [PosteController::class, 'index']);
 Route::get('/client', [ClientController::class, 'index']);
-Route::get('/client', [ClientController::class, 'index']);
