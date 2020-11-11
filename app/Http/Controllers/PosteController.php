@@ -15,6 +15,7 @@ class PosteController extends Controller
     public function index()
     {
         $postes = \App\Models\Poste::all();
+        
         return response()->json($postes);
     }
 
