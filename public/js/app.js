@@ -38179,7 +38179,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", [
+    _vm._v("\n    bonjour\n    "),
+    _c(
+      "div",
+      _vm._l(_vm.postes, function(poste) {
+        return _c("div", { key: poste.id, staticClass: "nomposte" }, [
+          _vm._v("\n            " + _vm._s(poste.nomposte) + " \n        ")
+        ])
+      }),
+      0
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
