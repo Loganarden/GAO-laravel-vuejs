@@ -1946,31 +1946,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_poste_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/poste.vue */ "./resources/js/components/poste.vue");
+var _data$methods$compone;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    poste: _components_poste_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
+
+/* harmony default export */ __webpack_exports__["default"] = (_data$methods$compone = {
   data: function data() {
     return {
-      clients: {},
-      dialog: false
+      valid: true,
+      poste: '',
+      posteRules: [function (V) {
+        return !!v || 'Un nom est requis !';
+      }]
     };
   },
-  created: function created() {
-    var _this = this;
-
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://localhost:8000/api/client').then(function (response) {
-      return _this.clients = response.data;
-    })["catch"](function (error) {
-      return console.log(error);
-    });
+  methods: {
+    validate: function validate() {
+      this.$ref.form.validate();
+    }
   },
-  mounted: function mounted() {
-    console.log('component mounted.');
+  components: {
+    poste: _components_poste_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
-});
+}, _defineProperty(_data$methods$compone, "data", function data() {
+  return {
+    clients: {},
+    dialog: false
+  };
+}), _defineProperty(_data$methods$compone, "created", function created() {
+  var _this = this;
+
+  axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://localhost:8000/api/client').then(function (response) {
+    return _this.clients = response.data;
+  })["catch"](function (error) {
+    return console.log(error);
+  });
+}), _defineProperty(_data$methods$compone, "mounted", function mounted() {
+  console.log('component mounted.');
+}), _data$methods$compone);
 
 /***/ }),
 
@@ -38271,150 +38286,123 @@ var render = function() {
     [
       _c("poste"),
       _vm._v(" "),
-      _c(
-        "div",
-        [
-          _c(
-            "v-row",
-            { attrs: { justify: "center" } },
-            [
-              _c(
-                "v-dialog",
-                {
-                  attrs: { persistent: "", "max-width": "600px" },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "activator",
-                      fn: function(ref) {
-                        var on = ref.on
-                        var attrs = ref.attrs
-                        return [
-                          _c(
-                            "v-btn",
-                            _vm._g(
-                              _vm._b(
-                                {
-                                  attrs: {
-                                    color: "success",
-                                    dark: "",
-                                    title: "Ajouter un Pc"
-                                  }
-                                },
-                                "v-btn",
-                                attrs,
-                                false
-                              ),
-                              on
+      _c("div", [
+        _c(
+          "div",
+          { staticClass: "text-center" },
+          [
+            _c(
+              "v-dialog",
+              {
+                attrs: { width: "500" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "activator",
+                    fn: function(ref) {
+                      var on = ref.on
+                      var attrs = ref.attrs
+                      return [
+                        _c(
+                          "v-btn",
+                          _vm._g(
+                            _vm._b(
+                              { attrs: { color: "red lighten-2", dark: "" } },
+                              "v-btn",
+                              attrs,
+                              false
                             ),
-                            [_vm._v("ouvrir\n                            ")]
-                          )
-                        ]
-                      }
+                            on
+                          ),
+                          [
+                            _vm._v(
+                              "\n                    ouvrir\n                "
+                            )
+                          ]
+                        )
+                      ]
                     }
-                  ]),
-                  model: {
-                    value: _vm.dialog,
-                    callback: function($$v) {
-                      _vm.dialog = $$v
-                    },
-                    expression: "dialog"
                   }
-                },
-                [
-                  _vm._v(" "),
-                  _c(
-                    "v-card",
-                    [
-                      _c(
-                        "v-card-title",
-                        { staticClass: "d-flex justify-content-between" },
-                        [
-                          _c("span", { staticClass: "headline" }, [
-                            _vm._v("Ajouter d'une Attribution")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              attrs: { icon: "", color: "red" },
-                              on: {
-                                click: function($event) {
-                                  _vm.dialog = false
-                                }
-                              }
-                            },
-                            [_vm._v("X\n                            ")]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-card-text",
-                        [
-                          _c(
-                            "v-container",
-                            [
-                              _c(
-                                "v-row",
-                                {
-                                  staticClass:
-                                    "justify-content-center align-center"
-                                },
-                                [
-                                  _c("v-col", {
-                                    attrs: {
-                                      cols: "10",
-                                      "align-self": "center"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("v-col", {
-                                    attrs: { cols: "2", "align-self": "center" }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-card-actions",
-                        [
-                          _c("v-spacer"),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              staticClass: "mr-3 text-light",
-                              attrs: { color: "green", disabled: _vm.invalid },
-                              on: { click: _vm.addAttribution }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                Créer\n                            "
-                              )
-                            ]
-                          )
-                        ],
-                        1
+                ]),
+                model: {
+                  value: _vm.dialog,
+                  callback: function($$v) {
+                    _vm.dialog = $$v
+                  },
+                  expression: "dialog"
+                }
+              },
+              [
+                _vm._v(" "),
+                _c(
+                  "v-card",
+                  { attrs: { elevation: "3" } },
+                  [
+                    _c("v-card-title", { staticClass: "headline lighten-2" }, [
+                      _vm._v(
+                        "\n                    Ajouté un poste\n                "
                       )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "v-card-text",
+                      [
+                        _c(
+                          "v-form",
+                          [
+                            _c("v-text-field", {
+                              attrs: {
+                                rules: _vm.posteRules,
+                                label: "Poste N°",
+                                required: ""
+                              },
+                              model: {
+                                value: _vm.poste,
+                                callback: function($$v) {
+                                  _vm.poste = $$v
+                                },
+                                expression: "poste"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("v-divider"),
+                    _vm._v(" "),
+                    _c(
+                      "v-card-actions",
+                      [
+                        _c("v-spacer"),
+                        _vm._v(" "),
+                        _c(
+                          "v-btn",
+                          {
+                            staticClass: "mr-4",
+                            attrs: { color: "success", disabled: !_vm.valid },
+                            on: { click: _vm.validate }
+                          },
+                          [
+                            _vm._v(
+                              "\n                    ajouter\n                    "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
     ],
     1
   )
@@ -97752,7 +97740,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*!*************************************************************!*\
   !*** ./resources/js/views/home.js?vue&type=script&lang=js& ***!
   \*************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -97766,14 +97754,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************!*\
   !*** ./resources/js/views/home.vue ***!
   \*************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _home_vue_vue_type_template_id_6b822e44___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./home.vue?vue&type=template&id=6b822e44& */ "./resources/js/views/home.vue?vue&type=template&id=6b822e44&");
 /* harmony import */ var _home_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./home.js?vue&type=script&lang=js& */ "./resources/js/views/home.js?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _home_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _home_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 

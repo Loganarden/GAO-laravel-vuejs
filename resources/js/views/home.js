@@ -3,6 +3,20 @@ import poste from '../components/poste.vue';
 
 export default {
 
+    data: () => ({
+        valid: true,
+        poste: '',
+        posteRules: [
+            V => !!v || 'Un nom est requis !',
+        ],
+    }),
+
+    methods: {
+        validate () {
+            this.$ref.form.validate()
+        }
+    },
+
     components: {
         poste
     },
