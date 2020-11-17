@@ -48,7 +48,6 @@ export default {
                 })
                 .then(response => this.postes = response.data)
                 .catch(error => console.log(error));
-
             }
         },
 

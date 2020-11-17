@@ -37,11 +37,21 @@ services:
     volumes:
       - .docker/volumes/db:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=gao
       - MYSQL_USER=root
-      - MYSQL_PASSWORD=
-  
+      - MYSQL_PASSWORD=root
+ 
+  node:
+    build:
+      context: ./.docker/Node
+    container_name: gao-node
+    tty: true
+    volumes:
+      - .:/var/www
+    ports:
+      - 8080:8080
+
   traefik: 
     image: traefik:1.7
     container_name: gao-traefik
