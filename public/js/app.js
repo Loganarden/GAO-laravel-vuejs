@@ -1958,7 +1958,7 @@ __webpack_require__.r(__webpack_exports__);
       postes: {},
       dialog: false,
       valid: true,
-      nomposte: '',
+      nomposte: ' ',
       posteRules: [function (v) {
         return !!v || 'un poste est requis!';
       }]
@@ -2001,7 +2001,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     isvalid: function isvalid() {
-      return this.nomposte != '';
+      return this.name != '';
     }
   },
   mounted: function mounted() {

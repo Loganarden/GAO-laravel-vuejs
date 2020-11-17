@@ -8,17 +8,19 @@ export default {
     },
 
     data: () => {
+
         return {
             clients: {},
             postes: {},
             dialog: false,
             valid: true,
-            nomposte: '',
+            nomposte: ' ',
             posteRules: [
-            v => !!v || 'un poste est requis!',
-            ],
+            v => !!v || 'un poste est requis!'
+            ]
         }
     },
+
 
     created() {
           axios.get('http://localhost:8000/api/client')
@@ -52,7 +54,7 @@ export default {
         },
 
         isvalid() {
-            return this.nomposte !=''
+            return this.name !=''
         }
 
     },
