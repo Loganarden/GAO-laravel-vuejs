@@ -1946,46 +1946,68 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_poste_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/poste.vue */ "./resources/js/components/poste.vue");
-var _data$methods$compone;
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-
-/* harmony default export */ __webpack_exports__["default"] = (_data$methods$compone = {
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    poste: _components_poste_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   data: function data() {
     return {
+      clients: {},
+      postes: {},
+      dialog: false,
       valid: true,
-      poste: '',
-      posteRules: [function (V) {
-        return !!v || 'Un nom est requis !';
+      nomposte: '',
+      posteRules: [function (v) {
+        return !!v || 'un poste est requis!';
       }]
     };
   },
+  created: function created() {
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://localhost:8000/api/client').then(function (response) {
+      return _this.clients = response.data;
+    })["catch"](function (error) {
+      return console.log(error);
+    });
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/poste').then(function (response) {
+      return _this.postes = response.data;
+    })["catch"](function (error) {
+      return console.log(error);
+    }); // axios.post('api/poste', {
+    //     nomposte: this.nomposte,
+    // })
+    //     .then(response => this.postesID = response.data.id)
+    //     .catch(error => console.log(error));
+  },
   methods: {
     validate: function validate() {
-      this.$ref.form.validate();
+      var _this2 = this;
+
+      //  this.$refs.form.validate()
+      if (this.isvalid()) {
+        var data = {
+          nomposte: this.nomposte
+        };
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/poste/', {
+          nomposte: this.nomposte
+        }).then(function (response) {
+          return _this2.postes = response.data;
+        })["catch"](function (error) {
+          return console.log(error);
+        });
+      }
+    },
+    isvalid: function isvalid() {
+      return this.nomposte != '';
     }
   },
-  components: {
-    poste: _components_poste_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  mounted: function mounted() {
+    console.log('component mounted.');
   }
-}, _defineProperty(_data$methods$compone, "data", function data() {
-  return {
-    clients: {},
-    dialog: false
-  };
-}), _defineProperty(_data$methods$compone, "created", function created() {
-  var _this = this;
-
-  axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://localhost:8000/api/client').then(function (response) {
-    return _this.clients = response.data;
-  })["catch"](function (error) {
-    return console.log(error);
-  });
-}), _defineProperty(_data$methods$compone, "mounted", function mounted() {
-  console.log('component mounted.');
-}), _data$methods$compone);
+});
 
 /***/ }),
 
@@ -38200,15 +38222,29 @@ var render = function() {
       _vm._l(_vm.postes, function(poste) {
         return _c(
           "v-card",
-          { key: poste.id, attrs: { elevation: "3" } },
+          {
+            key: poste.id,
+            staticClass:
+              "ma-2 rounded-lg d-inline-flex flex-row pa-2 float-left",
+            attrs: { elevation: "3" }
+          },
           [
-            _c("v-card-subtitle", [
-              _vm._v(
-                "\n                " + _vm._s(poste.nomposte) + "\n            "
-              )
-            ]),
-            _vm._v(" "),
-            _c("v-card-text", [_vm._v("\n                body\n            ")])
+            _c(
+              "v-card-text",
+              [
+                _c("v-card-subtitle", [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(poste.nomposte) +
+                      "\n                    "
+                  )
+                ]),
+                _vm._v(
+                  "\n                    \n                    body\n                "
+                )
+              ],
+              1
+            )
           ],
           1
         )
@@ -38284,6 +38320,22 @@ var render = function() {
   return _c(
     "div",
     [
+      _c(
+        "div",
+        _vm._l(_vm.clients, function(client) {
+          return _c("div", { key: client.id, staticClass: "nomcli" }, [
+            _vm._v(
+              "\n                  " +
+                _vm._s(client.nomclient) +
+                "  " +
+                _vm._s(client.prenomclient) +
+                "\n              "
+            )
+          ])
+        }),
+        0
+      ),
+      _vm._v(" "),
       _c("poste"),
       _vm._v(" "),
       _c("div", [
@@ -38306,18 +38358,14 @@ var render = function() {
                           "v-btn",
                           _vm._g(
                             _vm._b(
-                              { attrs: { color: "red lighten-2", dark: "" } },
+                              { attrs: { color: "teal", dark: "" } },
                               "v-btn",
                               attrs,
                               false
                             ),
                             on
                           ),
-                          [
-                            _vm._v(
-                              "\n                    ouvrir\n                "
-                            )
-                          ]
+                          [_vm._v("\n            ouvrir\n          ")]
                         )
                       ]
                     }
@@ -38338,9 +38386,7 @@ var render = function() {
                   { attrs: { elevation: "3" } },
                   [
                     _c("v-card-title", { staticClass: "headline lighten-2" }, [
-                      _vm._v(
-                        "\n                    Ajouté un poste\n                "
-                      )
+                      _vm._v("\n            Ajouté un poste\n          ")
                     ]),
                     _vm._v(" "),
                     _c(
@@ -38348,6 +38394,17 @@ var render = function() {
                       [
                         _c(
                           "v-form",
+                          {
+                            ref: "form",
+                            attrs: { "lazy-validation": "" },
+                            model: {
+                              value: _vm.valid,
+                              callback: function($$v) {
+                                _vm.valid = $$v
+                              },
+                              expression: "valid"
+                            }
+                          },
                           [
                             _c("v-text-field", {
                               attrs: {
@@ -38356,39 +38413,32 @@ var render = function() {
                                 required: ""
                               },
                               model: {
-                                value: _vm.poste,
+                                value: _vm.nomposte,
                                 callback: function($$v) {
-                                  _vm.poste = $$v
+                                  _vm.nomposte = $$v
                                 },
-                                expression: "poste"
+                                expression: "nomposte"
                               }
-                            })
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "v-btn",
+                              {
+                                staticClass: "mr-4",
+                                attrs: {
+                                  disabled: !_vm.valid,
+                                  color: "success"
+                                },
+                                on: { click: _vm.validate }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                  ajouter\n                "
+                                )
+                              ]
+                            )
                           ],
                           1
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("v-divider"),
-                    _vm._v(" "),
-                    _c(
-                      "v-card-actions",
-                      [
-                        _c("v-spacer"),
-                        _vm._v(" "),
-                        _c(
-                          "v-btn",
-                          {
-                            staticClass: "mr-4",
-                            attrs: { color: "success", disabled: !_vm.valid },
-                            on: { click: _vm.validate }
-                          },
-                          [
-                            _vm._v(
-                              "\n                    ajouter\n                    "
-                            )
-                          ]
                         )
                       ],
                       1
@@ -97740,7 +97790,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*!*************************************************************!*\
   !*** ./resources/js/views/home.js?vue&type=script&lang=js& ***!
   \*************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -97754,15 +97804,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************!*\
   !*** ./resources/js/views/home.vue ***!
   \*************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _home_vue_vue_type_template_id_6b822e44___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./home.vue?vue&type=template&id=6b822e44& */ "./resources/js/views/home.vue?vue&type=template&id=6b822e44&");
 /* harmony import */ var _home_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./home.js?vue&type=script&lang=js& */ "./resources/js/views/home.js?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _home_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _home_js_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 

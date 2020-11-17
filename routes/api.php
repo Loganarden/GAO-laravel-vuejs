@@ -20,5 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/poste', [PosteController::class, 'index']);
+Route::prefix('poste')->group(function () {
+    Route::get('/', [PosteController::class, 'index']);
+    Route::post('/', [PosteController::class, 'create']);
+});
+
+
 Route::get('/client', [ClientController::class, 'index']);

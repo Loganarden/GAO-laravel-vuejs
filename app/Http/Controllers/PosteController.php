@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Poste;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PosteController extends Controller
 {
@@ -26,7 +27,14 @@ class PosteController extends Controller
      */
     public function create()
     {
-        //
+           request()-> validate([
+
+               'nomposte' => ['required'],
+         ]);
+  
+         $postes = new \App\Models\Poste;
+         $poste->nomposte = request ('nomposte');
+         $postes->save();
     }
 
     /**
