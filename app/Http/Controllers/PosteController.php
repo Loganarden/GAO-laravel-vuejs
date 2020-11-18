@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Poste;
 use Illuminate\Http\Request;
+use App\Resources\posteResouces;
 use Illuminate\Support\Facades\Validator;
 
 class PosteController extends Controller
@@ -16,8 +17,14 @@ class PosteController extends Controller
     public function index()
     {
         $postes = \App\Models\Poste::all();
-        
         return response()->json($postes);
+        
+        
+    }
+
+    public function test()
+    {
+       // return posteResources::collection('poste::all()');
     }
 
     /**
