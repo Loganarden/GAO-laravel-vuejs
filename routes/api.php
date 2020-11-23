@@ -22,7 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('poste')->group(function () {
     Route::get('/', [PosteController::class, 'index']);
-    Route::post('/', [PosteController::class, 'create']);
+    Route::post('/', [PosteController::class, 'store']);
 });
 
 

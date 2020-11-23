@@ -27,34 +27,29 @@ export default {
           .then(response => this.clients = response.data)
           .catch(error=> console.log(error));
 
-        axios.get('/api/poste')
-            .then(response => this.postes = response.data)
-            .catch(error => console.log(error));
-
-        // axios.post('api/poste', {
-        //     nomposte: this.nomposte,
-        // })
-        //     .then(response => this.postesID = response.data.id)
-        //     .catch(error => console.log(error));
     },
 
     methods: {
          validate() {
              //  this.$refs.form.validate()
-            if (this.isvalid()) {
+             if (this.isValid()) {
                 const data = {
                     nomposte: this.nomposte,
                 };
-                axios.post('/api/poste/', {
-                    nomposte: this.nomposte
-                })
-                .then(response => this.postes = response.data)
-                .catch(error => console.log(error));
+                axios.post('api/poste', data)
+                    .then(({ data }) => {
+                        this.$emit('store', data.data)
+                        this.dialog = false
+                    })
+                    .catch(error => {
+                        //TODO catch error
+                        console.log(error);
+                    });
             }
-        },
 
-        isvalid() {
-            return this.name !=''
+        },
+        isValid() {
+            return this.nomposte != ''
         }
 
     },

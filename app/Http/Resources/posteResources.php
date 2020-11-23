@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\attributionResources;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class posteResources extends JsonResource
@@ -14,9 +15,11 @@ class posteResources extends JsonResource
      */
     public function toArray($request)
     {
+        $attributions = attributionResources::collection($this->attributions);
         return [
-            'nomposte' => $this->resource->name,
-            'attribution' => attributionResrouces::collection($this->resource->attribution),
+            'id' => $this->id,
+            'nomposte' => $this->name,
+            'attributions' => $attributions
         ];
         //return parent::toArray($request);
     }

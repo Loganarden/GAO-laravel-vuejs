@@ -34,14 +34,7 @@ class PosteController extends Controller
      */
     public function create()
     {
-           request()-> validate([
-
-               'nomposte' => ['required'],
-         ]);
-  
-         $postes = new \App\Models\Poste;
-         $poste->nomposte = request ('nomposte');
-         $postes->save();
+        //
     }
 
     /**
@@ -52,7 +45,16 @@ class PosteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = Validator::make(
+            $request->input(),
+            [
+                'nomposte' => 'required',
+            ]
+        )->validate();
+
+        $poste= new \App\Models\Poste();
+        $poste->nomposte = $data['nomposte'];
+        $poste->save();
     }
 
     /**

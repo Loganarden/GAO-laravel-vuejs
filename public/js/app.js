@@ -1972,36 +1972,30 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (error) {
       return console.log(error);
     });
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/poste').then(function (response) {
-      return _this.postes = response.data;
-    })["catch"](function (error) {
-      return console.log(error);
-    }); // axios.post('api/poste', {
-    //     nomposte: this.nomposte,
-    // })
-    //     .then(response => this.postesID = response.data.id)
-    //     .catch(error => console.log(error));
   },
   methods: {
     validate: function validate() {
       var _this2 = this;
 
       //  this.$refs.form.validate()
-      if (this.isvalid()) {
+      if (this.isValid()) {
         var data = {
           nomposte: this.nomposte
         };
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/poste/', {
-          nomposte: this.nomposte
-        }).then(function (response) {
-          return _this2.postes = response.data;
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/poste', data).then(function (_ref) {
+          var data = _ref.data;
+
+          _this2.$emit('store', data.data);
+
+          _this2.dialog = false;
         })["catch"](function (error) {
-          return console.log(error);
+          //TODO catch error
+          console.log(error);
         });
       }
     },
-    isvalid: function isvalid() {
-      return this.name != '';
+    isValid: function isValid() {
+      return this.nomposte != '';
     }
   },
   mounted: function mounted() {
