@@ -1915,7 +1915,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       postes: {},
-      dialog: false
+      dialog: false,
+      clients: {},
+      horaires: []
     };
   },
   created: function created() {
@@ -1926,6 +1928,43 @@ __webpack_require__.r(__webpack_exports__);
     })["catch"](function (error) {
       return console.log(error);
     });
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://localhost:8000/api/attribution').then(function (response) {
+      return _this.postes = response.data;
+    })["catch"](function (error) {
+      return console.log(error);
+    });
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://localhost:8000/api/client').then(function (response) {
+      return _this.clients = response.data;
+    })["catch"](function (error) {
+      return console.log(error);
+    });
+    this.buildHoraires();
+  },
+  methods: {
+    initialise: function initialise() {
+      var _this2 = this;
+
+      this.poste.attributions.forEach(function (attribution) {
+        _this2.attributions[attribution.horaire] = {
+          id: attribution.id,
+          nomclient: attribution.client.nomclient,
+          prenomclient: attribution.client.prenomclient
+        };
+      });
+      this.buildHoraires();
+    },
+    buildHoraires: function buildHoraires() {
+      for (var i = 8; i <= 18; i++) {
+        var objet = {
+          horaire: null,
+          attribution: null
+        };
+        objet.horaire = i;
+        this.horaires.push(objet);
+      }
+
+      console.log(this.horaires);
+    }
   },
   mounted: function mounted() {
     console.log('component mounted.');
@@ -38228,16 +38267,42 @@ var render = function() {
               [
                 _c("v-card-subtitle", [
                   _vm._v(
-                    "\n                    " +
+                    "\n                " +
                       _vm._s(poste.nomposte) +
-                      "\n                    "
+                      "\n                "
                   )
                 ]),
-                _vm._v(
-                  "\n                    \n                    body\n                "
-                )
+                _vm._v(" "),
+                _vm._l(_vm.horaires, function(horaire, index) {
+                  return _c(
+                    "v-row",
+                    { key: index },
+                    [
+                      _c("v-col", [
+                        _vm._v(" " + _vm._s(horaire.horaire) + "h")
+                      ]),
+                      _vm._v(" "),
+                      _c("v-col", [
+                        horaire.attribution
+                          ? _c("span", [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(
+                                    horaire.attribution.nomclient +
+                                      " " +
+                                      horaire.attribution.prenomclient
+                                  ) +
+                                  "\n                            "
+                              )
+                            ])
+                          : _vm._e()
+                      ])
+                    ],
+                    1
+                  )
+                })
               ],
-              1
+              2
             )
           ],
           1
@@ -38359,7 +38424,7 @@ var render = function() {
                             ),
                             on
                           ),
-                          [_vm._v("\n            ouvrir\n          ")]
+                          [_vm._v("\n            Ajouter un poste\n          ")]
                         )
                       ]
                     }

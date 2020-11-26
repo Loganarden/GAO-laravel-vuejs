@@ -15,7 +15,10 @@ class attributionResources extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'nomposte' => $this->resource->nomposte,
+            'nomclient' =>$this->resource->nomclient,
+            'prenomclient' =>$this->resource->prenomclient,
         ];
         //return parent::toArray($request);
     }

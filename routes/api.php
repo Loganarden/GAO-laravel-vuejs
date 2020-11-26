@@ -27,3 +27,6 @@ Route::prefix('poste')->group(function () {
 
 
 Route::get('/client', [ClientController::class, 'index']);
+
+
+Route::get('/attribution', [AttributionController::class, 'index']);

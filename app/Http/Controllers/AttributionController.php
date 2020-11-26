@@ -14,7 +14,8 @@ class AttributionController extends Controller
      */
     public function index()
     {
-        //
+        $attributions = \App\Models\Attribution::all();
+        return response()->json($postes);
     }
 
     /**

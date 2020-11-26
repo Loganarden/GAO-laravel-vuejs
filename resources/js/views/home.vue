@@ -12,7 +12,7 @@
         <v-dialog v-model="dialog" width="500">
           <template v-slot:activator="{ on, attrs }">
             <v-btn color="teal" dark v-bind="attrs" v-on="on">
-              ouvrir
+              Ajouter un poste
             </v-btn>
           </template>
 

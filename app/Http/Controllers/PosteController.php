@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Poste;
 use Illuminate\Http\Request;
-use App\Resources\posteResouces;
+use App\Http\Resources\posteResources;
 use Illuminate\Support\Facades\Validator;
 
 class PosteController extends Controller
@@ -55,6 +55,7 @@ class PosteController extends Controller
         $poste= new \App\Models\Poste();
         $poste->nomposte = $data['nomposte'];
         $poste->save();
+        return new posteResources($poste);
     }
 
     /**
